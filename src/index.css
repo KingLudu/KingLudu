@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@theme {
+  --color-purple-50: #f0fdf4;
+  --color-purple-100: #dcfce7;
+  --color-purple-200: #bbf7d0;
+  --color-purple-300: #86efac;
+  --color-purple-400: #4ade80;
+  --color-purple-500: #22c55e;
+  --color-purple-600: #16a34a;
+  --color-purple-700: #15803d;
+  --color-purple-800: #166534;
+  --color-purple-900: #0a4019;
+  --color-purple-950: #03200b;
+
+  --color-indigo-50: #f0fdf4;
+  --color-indigo-100: #dcfce7;
+  --color-indigo-200: #bbf7d0;
+  --color-indigo-300: #86efac;
+  --color-indigo-400: #4ade80;
+  --color-indigo-500: #22c55e;
+  --color-indigo-600: #16a34a;
+  --color-indigo-700: #15803d;
+  --color-indigo-800: #166534;
+  --color-indigo-900: #0a4019;
+  --color-indigo-950: #03200b;
+
+  --color-violet-50: #f0fdf4;
+  --color-violet-100: #dcfce7;
+  --color-violet-200: #bbf7d0;
+  --color-violet-300: #86efac;
+  --color-violet-400: #4ade80;
+  --color-violet-500: #22c55e;
+  --color-violet-600: #16a34a;
+  --color-violet-700: #15803d;
+  --color-violet-800: #166534;
+  --color-violet-900: #0a4019;
+  --color-violet-950: #03200b;
+
+  --color-fuchsia-50: #f0fdf4;
+  --color-fuchsia-100: #dcfce7;
+  --color-fuchsia-200: #bbf7d0;
+  --color-fuchsia-300: #86efac;
+  --color-fuchsia-400: #4ade80;
+  --color-fuchsia-500: #22c55e;
+  --color-fuchsia-600: #16a34a;
+  --color-fuchsia-700: #15803d;
+  --color-fuchsia-800: #166534;
+  --color-fuchsia-900: #0a4019;
+  --color-fuchsia-950: #03200b;
+
+  --color-pink-50: #f0fdf4;
+  --color-pink-100: #dcfce7;
+  --color-pink-200: #bbf7d0;
+  --color-pink-300: #86efac;
+  --color-pink-400: #4ade80;
+  --color-pink-500: #22c55e;
+  --color-pink-600: #16a34a;
+  --color-pink-700: #15803d;
+  --color-pink-800: #166534;
+  --color-pink-900: #0a4019;
+  --color-pink-950: #03200b;
+
+  --color-cyan-50: #f0fdf4;
+  --color-cyan-100: #dcfce7;
+  --color-cyan-200: #bbf7d0;
+  --color-cyan-300: #86efac;
+  --color-cyan-400: #4ade80;
+  --color-cyan-500: #22c55e;
+  --color-cyan-600: #16a34a;
+  --color-cyan-700: #15803d;
+  --color-cyan-800: #166534;
+  --color-cyan-900: #0a4019;
+  --color-cyan-950: #03200b;
+
+  --color-blue-50: #f0fdf4;
+  --color-blue-100: #dcfce7;
+  --color-blue-200: #bbf7d0;
+  --color-blue-300: #86efac;
+  --color-blue-400: #4ade80;
+  --color-blue-500: #22c55e;
+  --color-blue-600: #16a34a;
+  --color-blue-700: #15803d;
+  --color-blue-800: #166534;
+  --color-blue-900: #0a4019;
+  --color-blue-950: #03200b;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Mobile Touch & Viewport Optimizations                                      */
+/* -------------------------------------------------------------------------- */
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #04240d;
+  background-image: url('/images/green_abstract_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #f1f5f9;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Gameplay Board & Dice Area - Prevent Pinch/Double-tap Zoom & Unwanted Pan */
+.ludo-board,
+.ludo-board-container,
+.game-play-area,
+.dice-container,
+.pawn-interactive {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure buttons and controls respond immediately without 300ms delay or zoom */
+button,
+a,
+[role="button"],
+input,
+select {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-slow {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-slow {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee-slow 140s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover,
+.animate-marquee-slow:hover {
+  animation-play-state: paused;
+}
+
+@keyframes coin-fall {
+  0% {
+    transform: translateY(-30px) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(450px) rotate(360deg) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes float-balance-up {
+  0% {
+    transform: translateY(0) scale(0.85);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-8px) scale(1.05);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-24px) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-36px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.4), inset 0 0 10px rgba(245, 158, 11, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(245, 158, 11, 0.85), inset 0 0 18px rgba(234, 179, 8, 0.4);
+  }
+}
+
+.animate-coin-fall {
+  animation: coin-fall 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-float-balance {
+  animation: float-balance-up 2.2s ease-out forwards;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s infinite;
+}
+

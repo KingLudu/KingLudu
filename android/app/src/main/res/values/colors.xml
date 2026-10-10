@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0a0518</color>
+    <color name="colorPrimaryDark">#060212</color>
+    <color name="colorAccent">#f59e0b</color>
+    <color name="splashBackground">#0a0518</color>
+    <color name="royalGold">#fbbf24</color>
+    <color name="royalGoldDark">#d97706</color>
+    <color name="statusBarColor">#0a0518</color>
+    <color name="navigationBarColor">#0a0518</color>
+</resources>

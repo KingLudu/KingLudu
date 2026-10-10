@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Royal Dark Background -->
+    <item android:drawable="@color/splashBackground" />
+
+    <!-- Centered Royal King Ludo Emblem -->
+    <item
+        android:width="200dp"
+        android:height="200dp"
+        android:gravity="center"
+        android:drawable="@drawable/splash_logo" />
+</layer-list>

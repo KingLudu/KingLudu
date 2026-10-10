@@ -1,0 +1,109 @@
+name: Build King Ludo Android (APKs and AAB)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install NPM Dependencies
+        run: npm ci || npm install
+
+      - name: Build Web Application and Sync Capacitor
+        run: |
+          npm run build
+          npx cap sync android
+
+      - name: Set up Java JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x android/gradlew
+
+      # 1. Build Debug APK (পরীক্ষা করার জন্য)
+      - name: Build Debug APK
+        run: |
+          cd android
+          ./gradlew assembleDebug
+
+      # 2. Build Release APK (ব্যবহারকারীদের জন্য)
+      - name: Build Release APK
+        run: |
+          cd android
+          ./gradlew assembleRelease
+
+      # 3. Build Android App Bundle .AAB (Google Play Store-এর জন্য)
+      - name: Build Android App Bundle (AAB)
+        run: |
+          cd android
+          ./gradlew bundleRelease
+
+      # 4. Sign Production APK and AAB if Keystore Secrets are available
+      - name: Sign APK & AAB (if Keystore secrets provided)
+        if: env.KEYSTORE_BASE64 != ''
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > android/app/release.keystore
+          # Sign APK
+          if [ -f android/app/build/outputs/apk/release/app-release-unsigned.apk ]; then
+            $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+              --ks android/app/release.keystore \
+              --ks-pass pass:"$KEYSTORE_PASSWORD" \
+              --key-pass pass:"$KEY_PASSWORD" \
+              --ks-key-alias "$KEY_ALIAS" \
+              --out android/app/build/outputs/apk/release/app-release-signed.apk \
+              android/app/build/outputs/apk/release/app-release-unsigned.apk
+          fi
+          # Sign AAB using jarsigner
+          if [ -f android/app/build/outputs/bundle/release/app-release.aab ]; then
+            jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+              -keystore android/app/release.keystore \
+              -storepass "$KEYSTORE_PASSWORD" \
+              -keypass "$KEY_PASSWORD" \
+              android/app/build/outputs/bundle/release/app-release.aab \
+              "$KEY_ALIAS"
+          fi
+
+      # Upload 1: Debug APK
+      - name: Upload Debug APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: king-ludo-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      # Upload 2: Release APK (Unsigned or Signed)
+      - name: Upload Release APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: king-ludo-release-apk
+          path: |
+            android/app/build/outputs/apk/release/*.apk
+
+      # Upload 3: Android App Bundle (.AAB)
+      - name: Upload Play Store AAB Bundle Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: king-ludo-playstore-aab
+          path: android/app/build/outputs/bundle/release/app-release.aab

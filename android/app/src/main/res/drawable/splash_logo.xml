@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    
+    <!-- Outer Golden Glow Ring -->
+    <path
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="4"
+        android:fillColor="#150A33"
+        android:pathData="M 100, 20
+                          A 80 80 0 1 0 100, 180
+                          A 80 80 0 1 0 100, 20 Z" />
+
+    <!-- Royal Crown In Center -->
+    <path
+        android:fillColor="#FBBF24"
+        android:pathData="M 60,110 L 70,75 L 85,95 L 100,60 L 115,95 L 130,75 L 140,110 Z" />
+
+    <!-- Crown Jewels -->
+    <!-- Center Red Jewel -->
+    <path
+        android:fillColor="#EF4444"
+        android:pathData="M 100,60 m -5,0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0" />
+    <!-- Left Green Jewel -->
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M 70,75 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <!-- Right Blue Jewel -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M 130,75 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+
+    <!-- 4 Ludo Colored Dots / Pawns -->
+    <path
+        android:fillColor="#EF4444"
+        android:pathData="M 70,135 m -8,0 a 8,8 0 1,0 16,0 a 8,8 0 1,0 -16,0" />
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M 90,135 m -8,0 a 8,8 0 1,0 16,0 a 8,8 0 1,0 -16,0" />
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M 110,135 m -8,0 a 8,8 0 1,0 16,0 a 8,8 0 1,0 -16,0" />
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M 130,135 m -8,0 a 8,8 0 1,0 16,0 a 8,8 0 1,0 -16,0" />
+
+</vector>

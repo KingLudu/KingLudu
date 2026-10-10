@@ -1,0 +1,6 @@
+{
+  "name": "King Ludo",
+  "description": "A premium royal King Ludo board game featuring 2 & 4 player modes, customizable core rules, realistic 3D dice, 3D tokens, smooth animations, sound effects, and royal UI.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
